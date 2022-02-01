@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/Sparasec/gitlab-artifacts-downloader#readme",
   "dependencies": {
-    "got": "^12.0.1"
+    "got": "^11.0.0"
   }
 }
