@@ -1,0 +1,23 @@
+{
+  "name": "gitlab-artifacts-downloader",
+  "version": "1.0.0",
+  "description": "download job artifacts from multiple projects in gitlab",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sparasec/gitlab-artifacts-downloader.git"
+  },
+  "author": "alireza ebrahimi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sparasec/gitlab-artifacts-downloader/issues"
+  },
+  "homepage": "https://github.com/Sparasec/gitlab-artifacts-downloader#readme",
+  "dependencies": {
+    "got": "^12.0.1"
+  }
+}
