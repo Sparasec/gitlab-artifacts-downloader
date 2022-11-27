@@ -24,26 +24,32 @@ async function downloadJobs() {
     if (!fs.existsSync(directory)) {
         fs.mkdirSync(directory)
     }
-    for (const module in versionData) {
-        console.log("======================================");
-        console.log("checking jobs for ", module);
-        const moduleData = versionData[module];
-        if (moduleData.paths) {
-            for (const filename in moduleData.paths) {
-                const path = moduleData.paths[filename];
-                console.log(filename, path);
-                const url = `${gitUrl}/api/v4/projects/${moduleData.id}/jobs/artifacts/${moduleData.branch}/raw/${path}?job=${moduleData.job}`;
-                const job = got(url, {
-                    isStream: true,
-                    headers: {
-                        "PRIVATE-TOKEN": API_TOKEN,
-                    },
-                })
-                await pipeline(job, fs.createWriteStream(`${directory}/${filename}`))
-                console.log(`File downloaded to ${filename}`)
+    try {
+        for (const module in versionData) {
+            console.log("======================================");
+            console.log("checking jobs for ", module);
+            const moduleData = versionData[module];
+            if (moduleData.paths) {
+                for (const filename in moduleData.paths) {
+                    const path = moduleData.paths[filename];
+                    console.log(filename, path);
+                    const url = `${gitUrl}/api/v4/projects/${moduleData.id}/jobs/artifacts/${moduleData.branch}/raw/${path}?job=${moduleData.job}`;
+                    const job = got(url, {
+                        isStream: true,
+                        headers: {
+                            "PRIVATE-TOKEN": API_TOKEN,
+                        },
+                    })
+                    await pipeline(job, fs.createWriteStream(`${directory}/${filename}`))
+                    console.log(`File downloaded to ${filename}`)
+                }
             }
-        }
+        }    
+    } catch (error) {
+        console.log('error', error)
+        process.exit(3)
     }
+    
 }
 
 downloadJobs();
